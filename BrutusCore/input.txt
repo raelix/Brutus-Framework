@@ -1,0 +1,6 @@
+se ("tv camera" = 1 And "pc camera" = 0 O "luce camera" = 0) allora
+"pc camera" = 1;
+"luce camera" = 1;
+se ("tv camera" = 0 And "pc camera" = 1 O "luce camera" = 1) allora
+"pc camera" = 0;
+"luce camera" = 0;

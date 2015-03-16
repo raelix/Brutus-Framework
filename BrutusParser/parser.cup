@@ -1,0 +1,220 @@
+package com.brutus.parser;
+
+import java_cup.runtime.*;
+import com.brutus.parser.Lexer;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+
+parser code {:
+    
+	protected java.util.ArrayList<com.brutus.base.Param> buffer;
+	protected com.brutus.adapter.CoreAdapter adapter;
+	protected Lexer lexer;
+    protected boolean executeLine;
+	protected File script;
+	public static final int eof = -999;
+
+	public Parser(File script,com.brutus.adapter.CoreAdapter adapter, java.util.ArrayList<com.brutus.base.Param> buffer){
+	this.script = script;
+	this.buffer = buffer;
+	this.adapter = adapter;
+	}
+
+	public boolean isNumber(String data){ //String regex = "[0-9]+"; 
+		String regex = "[0-9].*"; //with float/double cases
+		return  data.matches(regex);
+	}
+
+	public double returnNum(String data){
+		if(isNumber(data))
+			return Double.parseDouble(data);
+		else 
+			return getValueByTag(data);
+	}
+
+	public double getValueByTag(String tag){
+		String tagMatch = tag.replace("\"", "");
+		if(buffer != null && buffer.size() > 0){
+			for(com.brutus.base.Param par : buffer){
+				if(par.getTag().contentEquals(tagMatch)){
+					if(par.getValue() != null){
+						if(par.getValue() instanceof Short)
+							return Short.valueOf((short)par.getValue()).doubleValue();
+						if(par.getValue() instanceof Integer)
+							return Integer.valueOf((int)par.getValue()).doubleValue();
+						if(par.getValue() instanceof Double)
+							return Double.valueOf((double)par.getValue()).doubleValue();
+						if(par.getValue() instanceof Float)
+							return Float.valueOf((float)par.getValue()).doubleValue();		
+					}
+				}	
+			}
+		} 
+		return eof; 
+	}
+	
+	public boolean elaborateCondition(String e1,String e2,int symbol){
+		if(returnNum(e1) == eof || returnNum(e2) == eof)
+			return false;
+		if(symbol == sym.EQ || symbol == sym.UGUG)
+			return (returnNum(e1) == returnNum(e2));
+		if(symbol == sym.MAG)
+			return (returnNum(e1) > returnNum(e2));
+		if(symbol == sym.MIN)
+			return (returnNum(e1) < returnNum(e2));
+		if(symbol == sym.MAGUG)
+			return (returnNum(e1) >= returnNum(e2));
+		if(symbol == sym.MINUG)
+			return (returnNum(e1) <= returnNum(e2));
+		else	
+			return false;
+	}
+	
+	public String elaborateVisitor(String e1,String e2,int symbol){
+		if(symbol == sym.EQ){
+			if(!executeLine){
+				if(!isNumber(e1))
+					return new String("non posso assegnare a "+e1+" il valore "+e2); 
+				else
+					return new String("non posso assegnare a "+e2+" il valore "+e1); 
+			}
+			else {
+				java.util.ArrayList<com.brutus.base.Param> request = new java.util.ArrayList<com.brutus.base.Param>();
+				if(isNumber(e1)){
+				request.add(new com.brutus.base.Param(e2.replace("\"", ""),returnNum(e1)));
+				adapter.setValues(request);
+					return new String("assegno a "+e2+" il valore "+e1);
+				}
+				else {
+				request.add(new com.brutus.base.Param(e1.replace("\"", ""),returnNum(e2)));
+				adapter.setValues(request);
+					return new String("assegno a "+e1+" il valore "+e2);
+				}
+			}
+		}
+		else if(symbol == sym.PIU)
+			return new String(""+((double)returnNum(e1)+returnNum(e2)));//e restituisco un float/intero
+		else if(symbol == sym.MENO)
+			return new String(""+((double)returnNum(e1)-returnNum(e2)));//e restituisco un float/intero
+		else if(symbol == sym.MULT)
+			return new String(""+((double)returnNum(e1)*returnNum(e2)));//e restituisco un float/intero	
+		return "ERROR";
+	}
+:}
+
+/* define how to connect to the scanner! */
+init with {:
+
+  executeLine = true;
+  ComplexSymbolFactory f = new ComplexSymbolFactory();
+  symbolFactory = f;
+
+  if(script == null) 
+	script = new File("input.txt");
+
+
+  File file = script;
+  FileInputStream fis = null;
+  
+  try {
+    fis = new FileInputStream(file);
+  } catch (IOException e) {
+    e.printStackTrace();
+  } 
+
+  lexer = new Lexer(f,fis);
+
+:};
+
+scan with {: return lexer.next_token(); :};
+
+
+/* Terminals (tokens returned by the scanner). */
+terminal            PV, PIU, MENO, N, MULT, LPAREN, RPAREN, IF, THEN, EQ, AND, OR, GL, GR;
+terminal 			MIN, MAG, MINUG, MAGUG, UGUG;
+terminal Double    NUMBER;
+terminal String 	VAR;        
+terminal Boolean    BOOL;
+
+/* Non terminals */
+non terminal            expr_list,if,stati,if_condition;
+non terminal Boolean    if_statment;
+non terminal String     expr;     
+
+
+/* Precedences */
+precedence left AND;
+precedence left OR;
+precedence left MIN, MAG, MINUG, MAGUG, UGUG,EQ;
+precedence left PIU, MENO;
+precedence left MULT;
+precedence left N;
+//l'intenzione è restituire true se viene eseguito il comando e salvare il contenuto in executeLine es: "luce = 3 true | luce = 4 false"
+
+/* Inizio grammatica */
+
+expr_list ::= 		        expr_list:e0 if:e 	 						{:executeLine = true; System.out.println(e); :}	  
+							|
+							if:e    									{:executeLine = true; System.out.println(e); :}	  
+           					;
+            
+/* e booleano, e1 stringa */
+
+if ::=	          			IF if_condition:e THEN if:e1				{: RESULT = e1;  :}
+							|
+							IF if_condition:e THEN stati:e1				{: RESULT = e1;  :}
+							|
+							IF if_condition:e THEN GL stati:e1 GR   	{: RESULT = e1;  :}
+							|
+							IF if_condition:e THEN GL stati:e1 GR PV  	{: RESULT = e1;  :}
+							;
+
+/* booleano */
+if_condition ::= 			LPAREN if_statment:e RPAREN 				{: if(!e) executeLine = false; RESULT = e; :}
+				 			|
+				 			if_statment:e                   		    {: if(!e) executeLine = false; RESULT = e; :}
+			      			;
+			
+/* stringa/intero */
+stati ::=		 		    
+							stati:old expr:e PV					     		{: RESULT = old+"\n"+e; :} //concateno tutti gli stati* restituiti
+							|
+							expr:e PV					     				{: RESULT = e;          :}
+							;
+			
+if_statment ::=   			if_statment:e1 AND if_statment:e2         {:  RESULT = (e1 && e2);    :}
+             				| 
+				   			if_statment:e1 OR if_statment:e2          {:  RESULT = (e1 || e2);    :}
+             				| 
+             				expr:e1 EQ expr:e2         				  {:  RESULT = elaborateCondition(e1,e2,sym.EQ);        :}
+             				| 
+             				expr:e1 UGUG expr:e2       			   	  {:  RESULT = elaborateCondition(e1,e2,sym.UGUG);      :}
+             				| 
+             				expr:e1 MIN  expr:e2      				  {:  RESULT = elaborateCondition(e1,e2,sym.MIN);       :}
+             				| 
+             				expr:e1 MAG expr:e2        				  {:  RESULT = elaborateCondition(e1,e2,sym.MAG);       :}
+             				| 
+             				expr:e1 MINUG expr:e2     				  {:  RESULT = elaborateCondition(e1,e2,sym.MINUG);     :}
+             				| 
+             				expr:e1 MAGUG  expr:e2    				  {:  RESULT = elaborateCondition(e1,e2,sym.MAGUG);     :}
+             			    | 
+             			    BOOL:e 
+             				;
+
+expr ::=      				expr:e1 EQ expr:e2         				 {:  RESULT = elaborateVisitor(e1, e2,sym.EQ);     :}
+			 			    | 
+			 			    expr:e1 PIU  expr:e2       				 {:  RESULT = elaborateVisitor(e1, e2,sym.PIU);    :}
+             			    | 
+             			    expr:e1 MENO expr:e2       				 {:  RESULT = elaborateVisitor(e1, e2,sym.MENO);   :}
+             				| 
+             				expr:e1 MULT expr:e2      				 {:  RESULT = elaborateVisitor(e1, e2,sym.MULT);   :}
+             				| 
+             				MENO expr:e               				 {:  RESULT =  new String("-"+e);                  :}
+             				%prec N
+             				| 
+             				NUMBER:n	                			 {:  RESULT = ""+n;                                :}
+             				| 
+             				VAR:var                     			 {:  RESULT = ""+var;                              :} 
+             				;
+       

@@ -1,0 +1,210 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_100" >
+
+    <RelativeLayout
+        android:id="@+id/camLayoutMjpeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bottombar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" >
+
+        <View
+            android:id="@+id/arrows"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+         android:layout_marginBottom="16dp"
+            android:background="@color/grey_300" />
+
+        <com.camera.simplemjpeg.MjpegView
+            android:id="@+id/cameraMjpeg"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/arrows"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" >
+        </com.camera.simplemjpeg.MjpegView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottombar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_100" >
+
+        <View
+            android:id="@+id/arrow"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_300" />
+
+        <ImageView
+            android:id="@+id/led"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/status_contentDescription"
+            android:src="@drawable/led_red" />
+
+        <ImageView
+            android:id="@+id/alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/led"
+            android:contentDescription="@string/alarm_contentDescription"
+            android:src="@drawable/ic_verified_user_grey600_18dp" />
+
+        <ImageView
+            android:id="@+id/log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/alarm"
+            android:contentDescription="@string/log_contentDescription"
+            android:src="@drawable/ic_trending_up_grey600_18dp" />
+
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/log"
+            android:contentDescription="@string/camera_contentDescription"
+            android:src="@drawable/ic_camera_alt_grey600_18dp" />
+
+        <ImageView
+            android:id="@+id/percentShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/camera"
+            android:contentDescription="@string/percentual_contentDescription"
+            android:src="@drawable/ic_trending_up_grey600_18dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/percentShow"
+            android:contentDescription="@string/settings_contentDescription"
+            android:src="@drawable/ic_settings_grey600_18dp" />
+
+        <ImageView
+            android:id="@+id/visibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/setting"
+            android:contentDescription="@string/visibility_contentDescription"
+            android:src="@drawable/ic_block_grey600_18dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/rw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrow"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/visibility"
+            android:contentDescription="@string/read_write_contentDescription"
+            android:src="@drawable/ic_create_grey600_18dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/spaceAvaible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/camLayoutMjpeg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" >
+
+        <View
+            android:id="@+id/arrowRecycleFirst"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_300" />
+
+        <TextView
+            android:id="@+id/AlarmText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrowRecycleFirst"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/Alarm"
+            android:textColor="@color/grey_800"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/alarmEnable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrowRecycleFirst"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/AlarmText"
+            android:contentDescription="@string/alarm_enable_contentDescription" />
+
+        <ImageView
+            android:id="@+id/eraseList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/arrowRecycleFirst"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/alarmEnable"
+            android:contentDescription="@string/erase_list_contentDescription" />
+
+        <View
+            android:id="@+id/arrowRecycle"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/AlarmText"
+            android:background="@color/grey_300" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/arrowRecycle"
+            android:scrollbars="vertical" />
+    </RelativeLayout>
+
+</RelativeLayout>

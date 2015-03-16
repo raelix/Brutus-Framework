@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="param" type="param"/>
+
+  <xs:element name="plugin" type="brutusArduinoDriver"/>
+
+  <xs:complexType name="brutusArduinoDriver">
+    <xs:complexContent>
+      <xs:extension base="plugin">
+        <xs:sequence>
+          <xs:element name="device" type="brutusArduinoDevice" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="plugin">
+    <xs:sequence/>
+    <xs:attribute name="enable" type="xs:boolean" use="required"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="timeout" type="xs:int" use="required"/>
+    <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="brutusArduinoDevice">
+    <xs:complexContent>
+      <xs:extension base="device">
+        <xs:sequence>
+          <xs:element name="param" type="brutusArduinoParam" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="address" type="xs:string"/>
+        <xs:attribute name="invert" type="xs:boolean" use="required"/>
+        <xs:attribute name="timeout" type="xs:int" use="required"/>
+        <xs:attribute name="type" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="device">
+    <xs:sequence/>
+    <xs:attribute name="tag" type="xs:string"/>
+    <xs:attribute name="address" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="brutusArduinoParam">
+    <xs:complexContent>
+      <xs:extension base="param">
+        <xs:sequence>
+          <xs:element name="devAddress" type="xs:string" minOccurs="0"/>
+          <xs:element name="devTimeout" type="xs:int"/>
+          <xs:element name="error" type="xs:int"/>
+          <xs:element name="inverted" type="xs:boolean"/>
+        </xs:sequence>
+        <xs:attribute name="delay" type="xs:int" use="required"/>
+        <xs:attribute name="direction" type="xs:string"/>
+        <xs:attribute name="mode" type="xs:string"/>
+        <xs:attribute name="pin" type="xs:int" use="required"/>
+        <xs:attribute name="variable" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="param">
+    <xs:sequence>
+      <xs:element name="costPerCent" type="xs:float"/>
+    </xs:sequence>
+    <xs:attribute name="polling" type="xs:int" use="required"/>
+    <xs:attribute name="tag" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>
+

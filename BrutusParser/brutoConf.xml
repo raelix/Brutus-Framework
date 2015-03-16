@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<brutus>
+    <plugins>
+        <plugin name="BrutusHwSwDriver" timeout="500">
+            <device tag="hwsw">
+                <param tag="tv camera" type="led0"/>
+                <param tag="luce camera" type="led1"/>
+                <param tag="pc camera" type="led2"/>
+			</device>
+		</plugin>
+        <plugin enable="true" name="BrutusRestClient" port="8080"/>
+        <plugin enable="true" name="BrutusModbusClient">
+            <device clientLim="3" id="100" port="502" showAll="true" tag="radio"/>
+		</plugin>
+        <plugin name="BrutusModbusDriver" timeout="500">
+            <device id="2" port="502" tag="locale1">
+                <param address="40001" tag="contatore luce"/>
+                <param address="40002" tag="bonjour"/>
+                <param address="40003" tag="luce salotto"/>
+                <param address="40004" tag="monitor fisso"/>
+                <param address="40005" tag="telefono"/>
+                <param address="40006" tag="altro"/>
+			</device>
+		</plugin>
+    </plugins>
+    <core debugLevel="5" idKey="APA91bGd1okldvgvqd2_giS7Pd0W6TuzGYM7zfx_FchUwyTkVJKvqq7eR53Uzr8y1DIH69GhuXAgrTNVQVUK1_MQRnMyJKYSEo3viu8v8_C3QV1PIk1TX7PovK_86J3QJc1pUZPcFcp5prPqYsHkzRkZwBxvUa03KQ">
+        <param alarmEnable="true" alarming="false" maxAlarm="1800" minAlarm="0" polling="2000" repeat="2" retentant="true" tag="contatore luce"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="10" minAlarm="0" polling="2000" repeat="3" retentant="false" tag="bonjour"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="luce salotto"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="monitor fisso"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="telefono"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="altro"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="10" minAlarm="0" polling="2000" repeat="2" retentant="false" tag="david1_param1"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="david1_param2"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="david1_param4"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="david2_param1"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="david2_param2"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="tv camera"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="luce camera"/>
+        <param alarmEnable="false" alarming="false" maxAlarm="0" minAlarm="0" polling="2000" repeat="0" retentant="false" tag="pc camera"/>
+        <device tag="radio" address="dev/ttyAMA0" type="rtu"/>
+        <device tag="altroRadio" address="dev/ttyAMA0" type="rtu"/>
+        <device tag="hwsw" address="http://192.168.0.12" type="hwsw"/>
+        <device tag="locale1" address="192.168.0.11" type="tcp"/>
+    </core>
+</brutus>

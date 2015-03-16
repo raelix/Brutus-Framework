@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="DarkActionbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="elevation">12dp</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+<style name="roundButton" parent="android:style/Widget.Material.Button">
+     <item name="android:textColor">@color/white</item>
+    <item name="android:background">@drawable/ripple_round_button</item>
+     <item name="android:stateListAnimator">@anim/round_button_elevation</item>
+          <item name="android:elevation">2dp</item>
+</style>
+    <style name="CardView">
+        <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
+        <item name="cardElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardMaxElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="cardPreventCornerOverlap">true</item>
+    </style>
+
+    <dimen name="cardview_default_elevation">4dp</dimen>
+    <dimen name="cardview_default_radius">4dp</dimen>
+    <!--
+     <item name="cardBackgroundColor">@color/cardview_light_background</item>
+    <color name="cardview_light_background">#FFFAFAFA</color>
+    -->
+
+</resources>

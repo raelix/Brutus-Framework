@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imagenotileft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/description" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/imagenotileft"
+        android:textColor="@color/grey_800"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/imagenotileft"
+        android:textColor="@color/grey_600"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/disable"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/title"
+        android:layout_marginRight="81dp"
+        android:layout_marginTop="3dp"
+        android:contentDescription="@string/visibility_contentDescription"
+        android:src="@drawable/ic_block_grey600_24dp" />
+
+    <ImageView
+        android:id="@+id/reset"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/title"
+        android:layout_marginRight="11dp"
+        android:contentDescription="@string/visibility_contentDescription"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/ic_notifications_none_grey600_24dp" />
+
+
+</RelativeLayout>

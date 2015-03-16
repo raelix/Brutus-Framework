@@ -1,0 +1,10 @@
+if "luce salotto" = 12 then
+if "luce camera" = 23 then
+se ("luce camera" ==  22.1 + 0.9 E "luce camera" ==  22.1 + 0.9 ) allora 
+if ("luce camera" == "luce salotto" + 11  Or  "luce camera" == "luce salotto" + 12) then {
+"luce stanza" = "luce stanza" + 1;
+"luce camera" = "luce stanza" + 3;
+}
+if ("luce camera" == "luce salotto" + 11  And  "luce camera" == "luce salotto" + 13) then {
+"luce camera" = "luce stanza" + 3 + 2 + 4;
+}

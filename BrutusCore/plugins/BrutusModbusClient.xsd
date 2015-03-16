@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="plugin" type="brutusModbusClient"/>
+
+  <xs:complexType name="brutusModbusClient">
+    <xs:complexContent>
+      <xs:extension base="plugin">
+        <xs:sequence>
+          <xs:element name="device" type="masterModbus" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="plugin">
+    <xs:sequence/>
+    <xs:attribute name="enable" type="xs:boolean" use="required"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="timeout" type="xs:int" use="required"/>
+    <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="masterModbus">
+    <xs:complexContent>
+      <xs:extension base="device">
+        <xs:sequence/>
+        <xs:attribute name="address" type="xs:string"/>
+        <xs:attribute name="clientLimit" type="xs:int" use="required"/>
+        <xs:attribute name="id" type="xs:int" use="required"/>
+        <xs:attribute name="port" type="xs:int" use="required"/>
+        <xs:attribute name="showAll" type="xs:boolean" use="required"/>
+        <xs:attribute name="type" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="device">
+    <xs:sequence/>
+    <xs:attribute name="tag" type="xs:string"/>
+    <xs:attribute name="address" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>
+

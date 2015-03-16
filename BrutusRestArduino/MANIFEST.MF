@@ -1,0 +1,5 @@
+Manifest-Version: 1.0.0
+Module-Class: com.brutus.driver.arduino.BrutusArduinoDriverStarter
+Author: raelix
+Type: Driver
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:animateLayoutChanges="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardElevation="4dp"
+    card_view:cardPreventCornerOverlap="false" >
+
+    <RelativeLayout
+        android:id="@+id/parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/nameDef"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/grey_800"
+                android:textSize="18sp"
+                android:transitionName="title" />
+
+            <TextView
+                android:id="@+id/nameDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameDef"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/grey_600"
+                android:textSize="14sp"
+                android:transitionName="description" />
+
+            <ImageView
+                android:id="@+id/sensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@+id/nameDef"
+                android:contentDescription="@string/status_contentDescription"
+                android:transitionName="status" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/valueDef"
+            style="@style/roundButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
+            android:layout_above="@+id/inclusione"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/half_button_size"
+            android:layout_marginRight="20dp"
+            android:textSize="14sp"
+            android:transitionName="value" />
+
+        <TextView
+            android:id="@+id/unitMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/valueDef"
+            android:layout_below="@+id/child"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/valueDef"
+            android:textColor="@color/grey_100"
+            android:visibility="gone" />
+
+        <com.gc.materialdesign.views.Slider
+            android:id="@+id/sliderNumber"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/child"
+            android:layout_marginRight="38dp"
+            android:background="#1E88E5"
+            materialdesign:max="50"
+            materialdesign:min="0"
+            materialdesign:showNumberIndicator="true" />
+
+        <include
+            android:id="@+id/inclusione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sliderNumber"
+            layout="@layout/bar_down" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

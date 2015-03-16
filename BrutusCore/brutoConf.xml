@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<brutus>
+    <plugins>
+        <plugin name="BrutusArduinoDriver" timeout="1800">
+            <device invert="true" tag="locale1" timeout="500">
+                <param tag="contatore luce" variable="power"/>
+                <param direction="output" mode="digital" pin="5" tag="bonjour"/>
+                <param direction="output" mode="digital" pin="6" tag="luce salotto"/>
+                <param direction="output" mode="digital" pin="7" tag="monitor fisso"/>
+                <param direction="output" mode="digital" pin="8" tag="telefonos"/>
+			</device>
+			<device  tag="ups" timeout="500">
+                <param tag="potenza ups" variable="power"/>
+			</device>
+		</plugin>
+        <plugin name="BrutusHwSwDriver" timeout="800">
+            <device tag="hwsw">
+                <param tag="tv camera" type="led0"/>
+                <param tag="luce camera" type="led1"/>
+                <param tag="pc camera" type="led2"/>
+			</device>
+		</plugin>
+        <plugin enable="true" name="BrutusRestClient" port="8080"/>
+        <plugin enable="true" name="BrutusModbusClient">
+            <device clientLim="3" id="100" port="502" showAll="true" tag="radio"/>
+		</plugin>
+        <plugin enable="false" name="BrutusModbusDriver" timeout="1000">
+		</plugin>
+    </plugins>
+    <core debugLevel="5" idKey="APA91bGd1okldvgvqd2_giS7Pd0W6TuzGYM7zfx_FchUwyTkVJKvqq7eR53Uzr8y1DIH69GhuXAgrTNVQVUK1_MQRnMyJKYSEo3viu8v8_C3QV1PIk1TX7PovK_86J3QJc1pUZPcFcp5prPqYsHkzRkZwBxvUa03KQ">
+        <param polling="2000" tag="contatore luce">
+            <costPerCent>12.0</costPerCent>
+        </param>
+          <param polling="2000" tag="potenza ups">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="bonjour">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="luce salotto">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="monitor fisso">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="telefono">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="telefonos">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="altro">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="david1_param1">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="david1_param2">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="david1_param4">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="david2_param1">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="david2_param2">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="tv camera">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="luce camera">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <param polling="2000" tag="pc camera">
+            <costPerCent>12.0</costPerCent>
+        </param>
+        <device tag="radio" address="dev/ttyAMA0" type="rtu"/>
+        <device tag="altroRadio" address="dev/ttyAMA0" type="rtu"/>
+        <device tag="hwsw" address="http://192.168.0.12" type="hwsw"/>
+        <device tag="locale1" address="192.168.0.11" type="tcp"/>
+          <device tag="ups" address="192.168.0.2:8888" type="tcp"/>
+    </core>
+</brutus>
